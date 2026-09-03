@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<AssemblyName>GumpCreator</AssemblyName>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<OutputPath>..\..\Fiddler\bin\$(Configuration)\plugins\</OutputPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Fiddler.Controls\Fiddler.Controls.csproj" />
+		<ProjectReference Include="..\..\Ultima\Ultima.csproj" />
+	</ItemGroup>
+</Project>

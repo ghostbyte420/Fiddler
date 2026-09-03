@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "avK33bY009M=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\aasro\\Desktop\\Fiddler\\Ultima\\Ultima.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\aasro\\.nuget\\packages\\system.io.hashing\\10.0.11\\system.io.hashing.10.0.11.nupkg.sha512"
+  ],
+  "logs": []
+}

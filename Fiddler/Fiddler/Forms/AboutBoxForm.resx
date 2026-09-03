@@ -1,0 +1,712 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>Changelog Has Moved To GitHub:
+https://github.com/aasr-opc/uoAvox-Fiddler/blob/main/UPDATES.md
+___________________________________________________________________________________________
+
+Version 4.23.0
+- Multi tile flags survive a UOP &lt;&gt; mul round trip: the visibility word maps onto both `multi.mul` int32s instead of one boolean (8207 of 186695 shipped tiles used to lose a bit)
+- Per-tile component ids are kept in a `multi-components.txt` sidecar, so repacking no longer strips a boat's tiller man, hatch and planks or a house's doors
+- Loading a multi no longer deletes invisible tiles or reorders the tile list (this dropped 122 tiles and reshuffled 119 multis on shipped data)
+- `housing.bin` is no longer parsed as multi 7, and the multi id ceiling now covers the ids up to 9000 that ship in MultiCollection.uop
+- MultiCollection.uop is written in the client's real shape: version 4 container, 12-byte entry headers, header Adler32, zlib level 7
+- UOP gump width and height are no longer swapped
+- EA's 0x0 placeholder gumps no longer list as valid (and then fail to draw) on compressed clients
+- Gump ids up to 0x12000 are supported, including 69971..69985 shipped by 7.0.98.1 and later
+- Compressed UOP entries are read at their real on-disk size; animations, maps and gumps were being read short
+- Animation frames using zlib-wrapped Mythic compression are now decoded instead of parsed as pixels
+- Compressed map UOPs are rejected with a clear message instead of silently misread
+- Sounds no longer get 8 bytes of junk prefixed as samples (the name block is 0x28 bytes, not 32)
+- UOP Packer: container layout matches the newest client per file type, and repacking the same input is now byte-identical
+- UOP Packer: empty or out-of-range idx rows are skipped and logged instead of packed from truncated data
+- UOP Packer: unpacked art keeps High Seas status, and large custom maps are no longer truncated to the stock facet size
+- UOP Packer: compression is validated per type, failures delete the partial file, and missing `housing.bin` / component sidecar are prompted for
+- Compare plugin: matches the main reader, so no more phantom differences; wider id range, released file handles and bitmap caches, and unreadable maps report once instead of throwing from paint handlers
+- Multi CSV/XML exports carry the trailing High Seas int32; `gumpidx.mul` and `multi.idx` are truncated at the last real entry instead of padded
+- UOP name hashing rewritten as a readable lookup3 port, verified bit-for-bit over 82k inputs
+
+Version 4.22.2
+- Add export option to thumbnail list in animation tab.
+
+Version 4.22.1
+- Fix animation edit form gallery tiles dimensions.
+
+Version 4.22.0
+- Added multi-select for compare plugins.
+- Animation edit form: add anim6.mul support and a gallery. Changed how animation files are loaded .
+- Optimized file loading times and memory usage across many controls.
+- Replace TreeView with faster controls in TileData, Sounds, RadarCol, Multis, Light, and Dress tabs for quicker loading and scrolling.
+- "Select in..." cross-tab navigation now activates the target main tab and reliably selects the row (fixes TileData "Save Changes" silently failing). Same fix applied to Items, LandTiles, RadarCol, Textures, Gumps, AnimData.
+- Dark mode color fixes: replace hardcoded Color.Blue/Color.Red/Color.Black with theme-aware alternatives (CornflowerBlue, OrangeRed, SystemColors.ControlText) across SkillGroup, RadarCol, Sounds, Light, Textures, Gumps, Map, Hues, LandTiles, Items, and the Hue edit form.
+- Hue edit form preview now uses the configured preview background color instead of hardcoded white.
+- Improved radarcol color generation and control layout.
+- Compare map status strip menu moved to context menu under right mouse button for easier access. Added mouse wheel zoom.
+- Multi select possible for items, land tiles and textures.
+- Added filter to animation tab
+- Added gallery preview to animation editor
+- Improved load times for animation tab
+- Added second animation overlay to animation editor
+- Added zoom option to animation editor
+- Fixed application failure to exit when profile selection form was closed without any selection.
+- Fixed crash when exporting altitude map image with View markers enabled.
+
+Version 4.21.0
+- Fixed display order in tiledata - org comes first now.
+- Fixed refreshing of preview images in compare plugins.
+- Added jpg and png to export image in items, land, texture and gump compare plugins.
+- Added UOP file support for compare art, land and gumps. When comparing you can select which type of file you want to use Auto/UOP/MUL (UOP comes before MUL in Auto).
+
+Version 4.20.2
+- Fixed tooltip client version information in UopPacker.
+- Added option to set export file name template hexadecimal/decimal (defaults to hexadecimal).
+
+Version 4.20.1
+- UopPacker: fix gump extraction, improve sizing of extracted index.
+- UopPacker: fix validation when extracting maps.
+- UopPacker: add progress bars and minor improvements to UI.
+- Cliloc tab: added additional validation and warnings if files contain unknown bytes.
+
+Version 4.20.0
+- Migrate to .NET 10.0
+- Add dark mode (experimental).
+
+Version 4.19.4
+- Fix dynamic flag when importing from WSC - value was flipped after recent changes.
+
+Version 4.19.3
+- Improve cliloc editing.
+    * Add "Next free" button when adding new cliloc entry.
+    * Add entry will now use current selection when searching for next free number or will search starting from the number user inputs in the text box.
+    * Add tiledata import preview form.
+- Update extract/pack all logic in UopPacker plugin.
+
+Version 4.19.2
+- Fix validation when adding and replacing images in Items and Land tiles tabs.
+- Added tooltips explaining compression settings in UopPacker plugin.
+- Minor fixes to internal logger construction.
+
+Version 4.19.1
+- UopPacker: added save support for MultiCollection.uop (including housing.bin) and refreshed the plugin UI.
+- Map copy/replace dialog now supports UOP map files. #105
+- Added "Replace from folder" bulk action for Items and Land Tiles tabs. #102
+- More controls now use the unified File Saved dialog (with Open Folder shortcut) when saving.
+- Animation editor remembers the selected file filter when adding new frames. #82
+
+Version 4.19.0
+- Added support for previewing contents of animations in anim6.mul and AnimationFrame1-6.uop (no export or edit option for uop yet).
+- Fixed possible crash and slowdown during tiledata CSV import from newer client to older client.
+- More preview boxes now support change background color and use background color set in Options.
+- Small adjustments to RadarCol compare layout.
+
+Version 4.18.2
+- Fixed WSC multi import where file has absolute coordinates. Now all coordinates are converted to relative ones.
+- Added DynamicItems.xml with list of items that should be marked as dynamic when importing multis from WSC.
+- Added support for viewing and importing Multicollection.uop multis (there is no save option for now).
+- Improved CliLoc comparison. It shows word diff now with highlights.
+- Removed `New cliloc format` option. Cliloc format is now autodetected.
+
+Version 4.18.1
+- Mass import plugin now allows importing PNG and JPEG.
+- Invalid entries in Animationlist.xml will now be skipped nad will result in a message about the problem.
+- Multi editor now has additional form with shortcut list.
+- Tiledata control now has additional form with some descriptions for fields and flags (data needs further updates).
+- Option to change background color for some controls is now consolidated under options and is saved in profile file. You can still make adjustments from respective controls.
+- Fix: added Gumplist.xml to UOFiddler main folder (missed in previous version).
+- You can use F3 and Shift F3 to search next/previous in: Clilocs, Speech, Dress, Items, Land tiles, Sounds and Tiledata tabs.
+- Map preview has new options to generate preview with altitude (little bit slow but works).
+
+Version 4.18.0
+- Small fix for animdata control layout
+- Verdata preview tab added to browse contents of verdata.mul (if present). It's still work in progress.
+- Main windows tabs can now be scrolled with mouse wheel.
+- New save file confirmation dialog with open output folder button (thank you SilkySnow_ for the idea and initial PR)
+- Multi editor has some new options: line draw, rectangle fill, undo/redo, brush size S/M/L and delete that allows selecting range (needs to be used with virtual floor for best effect).
+- Updated compare plugins. Added compare animdata, radarcol and tiledata.
+- Added Gumplist.xml that allows to add descriptions and tags to gump list.
+
+Version 4.17.9
+- Added the option to display the hue index as it is ingame in every client and server (author Lichtblitz)
+
+Version 4.17.8
+- Fix for reading older artidx.mul files that were probably edited with mulpatcher or some other tool.
+
+Version 4.17.7
+- Avoid crashes when using "Export all".
+- Updated gump file names when exporting.
+
+Version 4.17.6
+- Updated layout for animation list and editor.
+
+Version 4.17.5
+- Added PNG format when inserting or replacing graphics.
+
+Version 4.17.4
+- Fixed UOP file conversion that was broken after recent UOP encoding update.
+
+Version 4.17.3
+- Fixed gump related crash in compare plugin.
+
+Version 4.17.2
+- Fixed crash in animation thumbnail list. 
+
+Version 4.17.1
+- Fixed animation palette import from text files.
+
+Version 4.17.0
+- Improved cliloc and gump file encoding. Allows reading and saving compressed clilocs and gumps (author Krubster)
+
+Version 4.16.1
+- Fixed some crashes when file paths are invalid.
+
+Version 4.16.0
+- Added reading of compressed gump file introduced in version 7.0.104 (contributor Krubster based on ClassicUO team work)
+  + support is only partial so it can only read the files and decompress them
+  + saving will still produce old file type and there is no way to generate compressed UOP yet
+
+Version 4.15.3
+- Fixed importing animation frames from gif files
+
+Version 4.15.2
+- Added reading of compressed cliloc files introduced in version 7.0.104 (authors ClassicUO team; added by Tecmo)
+  + support is only partial so it can only read the files and decompress
+  + saving will still produce old file type
+  + to read newer clilocs you need to enable "New cliloc format" in Options
+
+Version 4.15.1
+- Fixed crash when animdata frame count entry is higher than the maximum value of 64
+
+Version 4.15.0
+- Updated tab order for radar color tab
+- Added gif export to Dress and Animation tabs  (author KevinEady)
+- UOPacker plugin can now unpack multicollection.uop (author Stefano Merotta)
+- Added tooltips to tiledata tab (author Dragon Slayer)
+
+Version 4.14.0
+- Various improvements for RadarCol tab (author KevinEady):
+    + save radarcol on treeview selection change
+    + enable revert, revert all for radarcol changes
+    + add "range items to individual average"
+    + add "range items to range average"
+    + add filter and checkbox selections
+
+Version 4.13.0
+- Added ability to set hue for AnimData frames and export animdata to GIF (author KevinEady)
+- Added ability to export design as XML in multi editor plugin (centred+ format) (author Prapilk)
+
+Version 4.12.0
+- Added import/export for AnimData (author KevinEady)
+- Added export to XML (centred+ format) in Multis tab (author Prapilk)
+- Fixed importing unicode font characters
+
+Version 4.11.0
+- Updated to .net 8.0
+
+Version 4.10.9
+- Fixed crash when adding new lights.
+
+Version 4.10.8
+- Removed search popups for gumps, sounds, textures and tiledata. Moved search to the control screen.
+- Removed obsolete setting to collapse right panel in sounds tab.
+
+Version 4.10.7
+- Fixed search ranges. Updated land tiles control layout.
+
+Version 4.10.6
+- Removed search popups for items and land tiles controls. Moved search to the control screen.
+
+Version 4.10.5
+- Added option to export hue names and ids to file - in case you need all hues list for some reason.
+
+Version 4.10.4
+- Updated map file unpacking process in UOP Packer plugin. When unpacking maps plugin will remove extra bytes from end of the mul files as some of the UOP maps contain additional 196 bytes. This extra bytes break some of the tooling.
+
+Version 4.10.3
+- Fixed art.mul/idx unpacking in UOP Packer plugin.
+
+Version 4.10.2
+- Fixed preview coloring in hue editor.
+
+Version 4.10.1
+- Fixed invalid value for tiledata flag `Unused8`. As tiledata csv export is positional this fix may affect files exported before this version. You'll have to compare files on your own. To fix older files just reorder columns later in file so this part `artused,noshadow,pixelbleed,playanimonce,unused8` should be `artused,unused8,noshadow,pixelbleed,playanimonce`.
+
+Version 4.10.0
+- Migrate to .net 7.
+
+Version 4.9.28
+- Fixed applying hues to items and animations.
+- Updated map replace tiles form to better indicate progress and possible issues with XML file.
+
+Version 4.9.27
+- Added "Remove tile border" option that makes tile borders invisible (tabs: items, land tiles, textures, fonts).
+- Added "Set background color same as tile background". When you select custom tile background color it will be applied to whole control too when this option is checked (currently limited to Items tab only).
+
+Version 4.9.26
+- Added "Export all sounds" option to Sounds tab.
+
+Version 4.9.25
+- Fixed multi editor plugin import range (maximum multi id was lower than in multi tab). 
+- Minor cleanup.
+
+Version 4.9.24
+- Added UOX3 multi export. It's very basic version so expect some features to be missing.
+
+Version 4.9.23
+- Import multi dialog will now run as modal.
+- Added import/export for multi as csv. To be used with punt's multi utilities.
+- Added import multi to "Mass import" plug-in
+- Fixed hue format saving to match original format better.
+
+Version 4.9.22
+- Fixed focusing of an item after search on Items, Land tiles and Textures tabs.
+
+Version 4.9.21
+- Added export to JPG and PNG on item detail form.
+- Added export to JPG and PNG on animation edit form.
+
+Version 4.9.20
+- Removed source file locking when importing or replacing assets.
+
+Version 4.9.19
+- Fixed update checker exception handling.
+
+Version 4.9.18
+- Fixed crash when exporting animation frames where action has missing frame.
+
+Version 4.9.17
+- Updated client window enumeration logic to look for alternative clients first to fix Client.SendText() on OrionUO client.
+
+Version 4.9.16
+- Gump list will now select last inserted index when using "Insert at..." and "Insert starting from..." while "Show free slots" is enabled.
+
+Version 4.9.15
+- Fixed problems with "Replace starting from.." in Items, Land tiles and Textures tabs. It now replaces tiles as it should. Stops when index reaches max index value.
+- Fixed "Show free slots" menu item not clearing its state after reloading files.
+
+Version 4.9.14
+- Fixed crash when browsing Textures with "show free slots" enabled.
+- Fixed crash when browsing SkillGrp that uses nonexistent skill id.
+
+Version 4.9.13
+- Fix for multi (multi tab) region export/import. MultiRegion should now have same coordinates after import.
+- Added "Replace starting from.." to Items tab. Allows replacing multiple items starting from selected index.
+- Renamed "Insert Starting From.." to "Replace starting from.." as it reflects actual function better.
+- Extended Ultima.Client with method to enumerate multiple ultima windows. Author: NaphalAXT. Source: https://github.com/NaphalAXT/ultimasVos/commit/5f2847739e8c690f8caa5e41c26075f64b930c0b
+- Minor code fixes and cleanups.
+
+Version 4.9.12
+- Added search items on Dress tab.
+
+Version 4.9.11
+- Added "Show Free Slots" option to Land Tiles tab.
+- Added "Show Free Slots" option to Textures tab.
+
+Version 4.9.10
+- Send item plug-in should now register itself only once and not twice.
+- Send item to client plug-in should work with ClassicUO (thanks to Xuri)
+
+Version 4.9.9
+Fixed Items tab - some larger statics items were not visible by default.
+Updated Sounds tab to use 0-based indexes by default. There is new option "Offset Sound Id by 1 (POL emulator)" for POL users. POL starts sound ids from 1.
+Added search by text to Hues control.
+
+Version 4.9.8
+Updated animationlist.xml (you need to copy updated file from UOFiddler directory to your profile folder and override existing animationlist.xml)
+Fixed speech.mul Id value reading - no longer limited to 256.
+
+Version 4.9.7
+"Select in Gump" tab option added to context menus in Items and Tiledata tabs.
+Minor updates in projects to fix building using `dotnet build` command.
+Fixed wrong map size pre-selection when using .uop format.
+"Insert starting from" option added to Gumps, Land Tiles and Textures tabs - allows to insert range of items in sequence (author Maybacco). 
+Added "Set textures" option for Tiledata tab - sets texture id for all land tiles without it but having corresponding texture. Assumption is that land tile index value is equal to texture index. Option will only update tiles where TexID is 0. You can also enable option to set individual landtile TexID to land tile index via double click in TexID text box (default is off). (author Maybacco).
+Default controls for items, land tiles and textures were removed. Alternative controls were renamed and are now main and only controls available.
+Removed obsolete hash file usage.
+"Replace" button on animation edit form has been hidden until its implementation is finished.
+Fixed inability to map animation body id values over 1696. It works now up to body id 2048 which is UO client limit. #58 
+New button "Average All" in RadarColor tab which checks all items and land tiles and sets all black non empty ones to average color. It's batch update command (author DiPaolaMarco).
+Fixed invalid marking of AnimData as modified when user only browse contents of the tab.
+Fixed 'Show Free Slots' on Items tab when using UOP file format.
+Fixed 'Show Free Slots' on Gumps tab.
+New options. You can now select selection color and focus color for tile view controls (items, land tiles, textures and fonts).
+Fixed crash when providing invalid regular expression pattern string in items, land tiles, tiledata and cliloc tabs. 
+Cliloc tab. "Goto text" uses case insensitive string comparison by default. You can switch to regular expressions if needed.
+Renamed Hue tab to Hues. Hues control - added quick Search option. You can now jump to hue by it's index. Displayed hue index values are now 0-based same as stored in hues.mul.
+Updated animation editor layout.
+Added action names to animation list in animation editor.
+Updated Serilog.Sinks.File package to latest version.
+
+Version 4.9.6
+Added new tile view control to Items, Land Tiles, Textures and Fonts. Rendering should be now smooth and fast. To use new control Alternative design mode in settings needs to be checked (thanks goes to control author Anton a.k.a 0xE1 https://github.com/0xE1/Managed-TileView and deccer for finding it).
+Added Export all... option to Textures tab.
+Changed how fonts are loaded. It should be faster now. By default when you enter Fonts tab it will load ASCII fonts only. Unicode ones are loaded after selecting checkbox.
+Fixed AnimData Save button.
+Fixed default text on Speech tab.
+
+Version 4.9.5
+Fixed rare hang when selecting tiles in Items/LandTiles tab from other tabs. 
+Fixed crash when using context menu in tiledata item list.
+Fixed multi design saving for UO architect. File extension changed to .uoa.txt to indicate that it is text format and not binary one. Updated import options for UO Architect txt files.
+Reduced flickering on Tiles tab in multi editor plugin.
+
+Version 4.9.4
+Fixed texture saving.
+Fixed the right click over the CliLoc Goto Textbox. (author: @Daviex)
+Added zoom in/out via the mouse wheel scroll. Added min/max values for zoom level. I can't go over 4 or lower than 0.25. (author: @Daviex)
+Little fixes in hue editor. It won't darken selected cell.
+You can now choose background color for Multis tab. The color will be used as background when exporting multi images. PNG format support transparency so by default it will have transparent background on export but it can be turned off and exported with solid background color. Default background color is white.
+Fixed textures not showing in alternative design mode.
+Fixed missing tiles from art tab - the max id was without 4k landtiles offset. This only occurred in never clients when id was over 0x10000.
+Fixed wrong path setting when multiple UO clients are installed. It's workaround but will do for now.
+Fixed crash when exporting images in multis tab.
+Fixed crash when changing anim file in animation editor.
+Added hexadecimal values to animation list. Fixed status bar text formatting.
+Updated Serilog package to 2.10.0.
+Fixed Animdata crash when trying to remove frame instead of animation entry. Updated Animdata control layout.
+
+Version 4.9.3
+Added right panel to Sound tab (author: Daviex)
+Added ability to change background color for Item tab. You can choose separate color for item list and right detail preview. Just right click and choose 'Change background color'. (author: Daviex)
+
+Version 4.9.2
+Added missing ship tiles group to multi editor plugin.
+Added currently selected profile name to main window title.
+AnimationEdit: imported frames from .gif files should now be centered on X axis.
+
+Version 4.9.1
+Instead of moving configuration files to AppData we now copy them if the file doesn't exist.
+Fixed exporting offset.cfg for items alternative design mode.
+Moved update checking to github releases API.
+Added UOP Packer plugin (authors: Feeh / Epila / cbnolok)
+Fixed Sounds tab description labels - indexes were off by 1.
+Fixed multi import issue with indexes higher than 4095.
+Avoid replacing exported multi images with different height settings by adding height value to file name if the value is different than maximum multi height.
+Updated tiledata flags to support High Seas extended format. Additional flags will only show if files are in HS format or later.
+Fixed loading map overlays from xml.
+Minor UI fixes and updates.
+Fixed max item id for hues. It will be taken from currently defined max id in Art.
+Fixed path setting issues where not all paths were updated after choosing new directory.
+Updated ultima art cache size.
+
+Version 4.9
+Updating project to .NET Framework 4.8 
+You can download .NET Framework at https://dotnet.microsoft.com/download/dotnet-framework
+This is maintenance release focusing on updating framework and code cleanup.
+Fixed bitmap to multimap saving (author: brndd).
+
+Version 4.8
+AsYlum added multiple selection in items tab using
+&lt;ctrl&gt; left-click used to with the test plug-in for exporting
+multiple items to an itemdesc.cfg file.
+AsYlum added graphic size &amp; offset information to Item details box.
+AsYlum added export all item's graphic offsets to offset.cfg. This is useful
+for properly positioning art tiles displayed in a gump using the TilePic gump command.
+
+Version 4.7 (aka. Alathair Fiddler 4.6.1.4 Merge)
+Fixed Art saving hash algorithm for duplicate finding was applied to odd data.
+Improved search usability: multiple enter results in search next
+Added Shortcut CTRL+F to open search dialog
+Added Cliloc import for current TileData
+Complete Rework of Sounds Tab for more usability
+Fixed sound indexes to correct game indexes
+Fixed translation indexes also support 4 digits
+Fixed sound name sorting with multiple whitespaces
+Fixed exporting sounds ensures extension
+Added showing translated sounds (marked blue and underlined)
+Added sound file cleaning from unsupported wave headers and format checks
+Added sound playback progress and stop-button
+Added capability for renaming sounds
+Fixed a possible crash condition when loading profiles
+Fixed light index files were saved invalid and caused client crashes for empty indexes
+Fixed light resolution was saved in wrong order so non-quadratic lights are supported now.
+Fixed light transparency saving should now work correctly.
+Added tif files in file selectors
+Fixed tile selection in tile data when tile data was not already open
+Fixed performance issue with showing free slots in Items Tab
+Added TileData Save directly on Change state now is saved in settings
+Fixed TileData save directly on change performance issue when changing name
+Added jump to gump option at items tab
+Added Search to gump tab
+Added Quick switch between Male/Female Gumps in Gump Tab
+Added some keyboard tweaks
+
+Version 4.6
+Switched to .NET 4
+Added option Outputpath
+Fiddler now uses %APPDATA%\uofiddler for the xml files
+Fixed ColorPalette Import for animations
+Changed textbox to numericUpDown for color in RadarColor tab
+Added Ilshenar to MapCopy
+Fixed display of AnimData tab
+
+Version 4.5g
+fixed some bugs
+About.. Added checkbox to store the MainForm window state on close (Maximised,Location,Size)
+
+Version 4.5f
+Added ability to define a tooltip for multis inside multilist.xml
+Multis get now stored in a more intelligent way it tries to find a non-invis centeritem
+Added support for facet0*.mul in MultiMap tab
+UO:HSA support
+and more stuff i already forgot
+
+Version 4.5e
+Map Replace:
+  now capable of copying between different map ids
+
+Version 4.5d
+MultiEditor:
+  Fixed bug with inserting center tile while saving 
+
+Version 4.5c
+Fixed bug with static saving
+
+Version 4.5b
+Fixed bug with art saving
+Filled SkillGroup tab with sense:
+added Add/Rename/Remove to contextmenu
+activated Drag &amp; Drop
+
+Version 4.5
+added UOArchitect binary file for import
+speedups
+MultiEditor: like maptab scrolling with right mouse
+Animation Editor: replaced with Soulblighter version big thx for his work, I only did a few speedups
+tutorial is available @ http://www.sphereserver.net/index.php?showtopic=47609
+
+Version 4.4
+Crashfix in Animtab ... again
+Hues: added contextmenu Import,Export (simple txtfile)
+Map: added support for 7.x clients thx to Andreew
+MassImportPlugin: added support for hues
+fixed direct save of tiledata
+TileData: renamed Unk1 to miscData (old UO Demo weapontemplate def)
+"save directly on changes" no more needs enter key
+ComparePlugin Map: preload diffs for speedup
+ComparePlugin added Texture (thx to nibbio)
+AnimationEdit:
+can now add multiple frame images  (thx to nibbio)
+added "Misc-&gt;Generate Palette" generates a new palette txtfile for given images
+added "Misc-&gt;Export All To VD" exports every valid animation of selected file
+various Crashfixes
+
+Version 4.3
+RenderEngine of Multis fixed
+MultiEditor:
+Added Misc-&gt;"Show double surface" highlights every tile with flag Surface on the same spot
+(to get rid of senseless items)
+Added Mouse right/middle click hit a spot where more then one item is placed it shows at the top a list (can be removed with the "rubber")
+Texture bugfixes
+
+Version 4.2d
+TileData: Added Misc-&gt;Set Filter
+Fix of UO:SA animdata save
+Minor fixes
+ComparePlugin UO:SA compatible
+TileData flag NoDiagonal (unused) is HoverOver in UO:SA renamed it
+Added skillgrp.mul tab currently without edit feature
+MultiEditor Plugin:
+Added new button "Switch Transparent" makes a tile transparent
+Added Misc-&gt;"Reset transparent tiles"
+Added Misc-&gt;"Show Walkable tiles" highlights all walkable tiles (checks if a player with height 16 can stand there)
+
+Version 4.2c
+Fix for anim saving
+Fix animationlist sorting
+Fix ReloadFile for animationedit
+
+Version 4.2b
+Cliloc: Added Import from csv
+AnimEdit:
+Export/Import to mulpatcher .vd format
+Misc-&gt;Show Only Valid added
+4.2 introduced bug with art saving fixed
+Gumps: Added ShowFreeSlots
+Minor Fixes
+
+Version 4.2
+UO:SA support
+Added Animation edit (Animations-&gt;Settings-&gt;Animation Edit):
+Mul Save
+Action remove
+Frame replace/insert/remove/export CenterX/Y change
+Palette export/import
+Note: unlike mulpatcher saving makes a complete rewrite, slower but no leftovers (smaller .mul size)
+mulpatcher import/export compatibility on todo list
+Map: 
+Added Replace Tiles (xmlbased)
+Changed MapReplace you can now define target X/Y
+Speech: csv import/export
+Minor fixes
+
+Version 4.1c
+MultiEditor:
+Heightbar fix
+Added Import from UOArchitect design file
+Added Checkbox to mark Component invisible
+art.mul index length changed to 0x10000
+Map: Added Clear Statics
+Dress: Added textbox to test mount anim
+
+Version 4.1b
+MultiEditor save Bugfix
+Cleanups
+
+Version 4.1
+Bugfixes, Cleanup, Speedups
+ComparePlugin:
+-compare Gump added
+-crash fixes
+MultiEditor:
+-Import from multicache.dat added
+-Tile picker selects Tile also in Tileselect tab
+-added contextmenuentry inside Itemstab to select tile
+-optimization/cleanup
+Light tab:
+-Added ContextMenu for switching to IG Preview
+-with the ContextMenu you can also change Background Landtile + "Light"-Art
+Added MassImportPlugin:
+-xml based MassImport
+TileData tab:
+-Added Import from CSV file
+
+Version 4.0a
+MultiEditor changes:
+some fixes
+added Tile picker
+added Undo list (last 10)
+
+Version 4.0
+-Added MultiEditor plugin!!!
+-Multilist.xml added for naming conventions on Multis tab
+-Added Melt/Freeze Statics
+-Redesigned Tiledata tab option to change directly (Textfields on Enter press)
+-True Black and true White are now considered as transparent for bmp's
+-Added Jpg for all Export All in tabs.
+-Added more Jpg export for single export of images.
+-Renamed Map and Diff copy menu names for better explanation in menu.
+-Fixed crashes in Compare Plugin for Land and Item compare.
+-Changed Max length for Name field in TileData Editing to 20 length as Client will cut it off at this point anyway.
+-Fixed Odd Crashes on some Windows XP installs with Export in Texture Tabs
+-Fixed Crash if idx lookup entry &gt; mul length
+
+Version information prior to 4.0 can be found in old-changelog.txt file.</value>
+  </data>
+</root>

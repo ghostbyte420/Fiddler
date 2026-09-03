@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<AssemblyName>MassImport</AssemblyName>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AssemblyTitle>MassImportPlugin</AssemblyTitle>
+		<Product>MassImportPlugin</Product>
+		<Copyright>Copyright © 2026</Copyright>
+		<Deterministic>false</Deterministic>
+		<AssemblyVersion>1.1.0.0</AssemblyVersion>
+		<FileVersion>1.1.0.0</FileVersion>
+	</PropertyGroup>
+	<PropertyGroup>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugType>portable</DebugType>
+		<OutputPath>..\..\Fiddler\bin\$(Configuration)\plugins\</OutputPath>
+	</PropertyGroup>
+	<PropertyGroup>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>none</DebugType>
+		<OutputPath>..\..\Fiddler\bin\$(Configuration)\plugins\</OutputPath>
+		<GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Fiddler.Controls\Fiddler.Controls.csproj" />
+	  <ProjectReference Include="..\..\Ultima\Ultima.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Forms\MassImportForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Forms\MassImportForm.Designer.cs">
+			<DependentUpon>MassImportForm.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Forms\MassImportForm.resx">
+			<DependentUpon>MassImportForm.cs</DependentUpon>
+		</EmbeddedResource>
+	</ItemGroup>
+</Project>

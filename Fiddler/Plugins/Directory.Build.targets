@@ -1,0 +1,5 @@
+﻿<Project>
+  <Target Name="RemoveSpuriousUoFiddlerFolder" AfterTargets="Build">
+    <RemoveDir Directories="$(MSBuildThisFileDirectory)uoFiddler" Condition="Exists('$(MSBuildThisFileDirectory)uoFiddler')" />
+  </Target>
+</Project>

@@ -1,0 +1,298 @@
+/***************************************************************************
+ *
+ * $Author: Turley
+ *
+ * "THE BEER-WARE LICENSE"
+ * As long as you retain this notice you can do whatever you want with
+ * this stuff. If we meet some day, and you think this stuff is worth it,
+ * you can buy me a beer in return.
+ *
+ ***************************************************************************/
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.InteropServices;
+using Ultima.Helpers;
+
+namespace Fiddler.Plugin.Compare.Classes
+{
+    public enum SecondCompressionFlag
+    {
+        None = 0,
+        Zlib = 1,
+        Mythic = 3
+    }
+
+    public interface SecondIEntry
+    {
+        int Lookup { get; set; }
+        int Length { get; set; }
+        int Extra { get; set; }
+        int DecompressedLength { get; set; }
+        int Extra1 { get; set; }
+        int Extra2 { get; set; }
+        SecondCompressionFlag Flag { get; set; }
+    }
+
+    public interface SecondIFileAccessor
+    {
+        SecondIEntry GetEntry(int index);
+        FileStream Stream { get; set; }
+        int IndexLength { get; }
+        long IdxLength { get; }
+        SecondIEntry this[int index] { get; set; }
+    }
+
+    // Layout-sensitive: matches the on-disk 12-byte idx entry. Do not reorder fields.
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct SecondEntry3D : SecondIEntry
+    {
+        public int lookup;
+        public int length;
+        public int extra;
+
+#pragma warning disable S2292
+        public int Lookup { get => lookup; set => lookup = value; }
+        public int Length { get => length; set => length = value; }
+        public int Extra { get => extra; set => extra = value; }
+        public int DecompressedLength { get => length; set => length = value; }
+#pragma warning restore S2292
+
+        public int Extra1
+        {
+            get => (Extra >> 16) & 0xFFFF;
+            set => Extra = (Extra & 0x0000FFFF) | ((value & 0xFFFF) << 16);
+        }
+
+        public int Extra2
+        {
+            get => Extra & 0x0000FFFF;
+            set => Extra = (int)((Extra & 0xFFFF0000) | (uint)(value & 0xFFFF));
+        }
+
+        public SecondCompressionFlag Flag { get => SecondCompressionFlag.None; set { } }
+    }
+
+    public struct SecondEntry6D : SecondIEntry
+    {
+        public int Lookup { get; set; }
+        public int Length { get; set; }
+        public int DecompressedLength { get; set; }
+
+        /// <summary>
+        /// High half of <see cref="Extra"/>. For gumps this is the width, matching the
+        /// (width &lt;&lt; 16 | height) packing in gumpidx.mul.
+        /// </summary>
+        public int Extra1 { get; set; }
+
+        /// <summary>
+        /// Low half of <see cref="Extra"/>. For gumps this is the height.
+        /// </summary>
+        public int Extra2 { get; set; }
+
+        /// <summary>
+        /// Packed (Extra1 &lt;&lt; 16 | Extra2) view over the two halves, mirroring <see cref="SecondEntry3D"/>.
+        /// Extra1/Extra2 are the only storage: they used to sit beside a separate pair of backing fields
+        /// that Extra alone wrote to, so a write through one view was invisible to the other.
+        /// </summary>
+        public int Extra
+        {
+            get => (Extra1 << 16) | (Extra2 & 0xFFFF);
+            set
+            {
+                Extra1 = (value >> 16) & 0xFFFF;
+                Extra2 = value & 0xFFFF;
+            }
+        }
+
+        public SecondCompressionFlag Flag { get; set; }
+    }
+
+    public class SecondMulFileAccessor : SecondIFileAccessor
+    {
+        public SecondEntry3D[] Index { get; }
+        public FileStream Stream { get; set; }
+        public long IdxLength { get; }
+        public int IndexLength => Index.Length;
+
+        public SecondIEntry this[int index]
+        {
+            get => Index[index];
+            set => Index[index] = (SecondEntry3D)value;
+        }
+
+        public SecondMulFileAccessor(string idxPath, string mulPath, int length)
+        {
+            Index = new SecondEntry3D[length];
+
+            using (var idx = new FileStream(idxPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                Stream = new FileStream(mulPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                int count = (int)(idx.Length / 12);
+                IdxLength = idx.Length;
+
+                int readLen = (int)Math.Min(IdxLength, (long)Index.Length * 12);
+                idx.ReadExactly(MemoryMarshal.AsBytes(Index.AsSpan()).Slice(0, readLen));
+
+                for (int i = count; i < Index.Length; ++i)
+                {
+                    Index[i].Lookup = -1;
+                    Index[i].Length = -1;
+                    Index[i].Extra = -1;
+                }
+            }
+        }
+
+        public SecondIEntry GetEntry(int index)
+        {
+            if (index < 0 || index >= Index.Length)
+            {
+                return new SecondEntry3D();
+            }
+
+            return Index[index];
+        }
+    }
+
+    public class SecondUopFileAccessor : SecondIFileAccessor
+    {
+        public SecondEntry6D[] Index { get; }
+        public FileStream Stream { get; set; }
+        public long IdxLength { get; }
+        public int IndexLength => Index.Length;
+
+        public SecondIEntry this[int index]
+        {
+            get => Index[index];
+            set => Index[index] = (SecondEntry6D)value;
+        }
+
+        public SecondUopFileAccessor(string path, string uopEntryExtension, int length, int idxLength, bool hasExtra)
+        {
+            Index = new SecondEntry6D[length];
+
+            if (idxLength > 0)
+            {
+                IdxLength = idxLength * 12L;
+            }
+
+            Stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            var fileInfo = new FileInfo(path);
+            string uopPattern = fileInfo.Name.Replace(fileInfo.Extension, "").ToLowerInvariant();
+
+            // leaveOpen: this ctor caches Stream on the instance for later
+            // SecondFileIndex.Seek calls; disposing the BinaryReader must not close it.
+            using (var br = new BinaryReader(Stream, System.Text.Encoding.UTF8, leaveOpen: true))
+            {
+                br.BaseStream.Seek(0, SeekOrigin.Begin);
+
+                if (br.ReadInt32() != 0x50594D)
+                {
+                    throw new ArgumentException("Bad UOP file.");
+                }
+
+                _ = br.ReadUInt32(); // version
+                _ = br.ReadUInt32(); // signature
+                long nextBlock = br.ReadInt64();
+                _ = br.ReadUInt32(); // block capacity
+                _ = br.ReadInt32();  // count
+
+                var hashes = new Dictionary<ulong, int>();
+                for (int i = 0; i < length; i++)
+                {
+                    string entryName = $"build/{uopPattern}/{i:D8}{uopEntryExtension}";
+                    ulong hash = UopUtils.HashFileName(entryName);
+                    hashes.TryAdd(hash, i);
+                }
+
+                br.BaseStream.Seek(nextBlock, SeekOrigin.Begin);
+
+                // UOP entries are sparse; pre-mark all as invalid. Extra1/Extra2 are set directly
+                // rather than through Extra, whose setter masks each half to 16 bits - the readers
+                // test Extra1 == -1, and Extra still reads back as -1 either way.
+                for (var i = 0; i < Index.Length; i++)
+                {
+                    Index[i].Lookup = -1;
+                    Index[i].Length = -1;
+                    Index[i].Extra1 = -1;
+                    Index[i].Extra2 = -1;
+                }
+
+                do
+                {
+                    int filesCount = br.ReadInt32();
+                    nextBlock = br.ReadInt64();
+
+                    for (int i = 0; i < filesCount; i++)
+                    {
+                        long offset = br.ReadInt64();
+                        int headerLength = br.ReadInt32();
+                        int compressedLength = br.ReadInt32();
+                        int decompressedLength = br.ReadInt32();
+                        ulong hash = br.ReadUInt64();
+                        _ = br.ReadUInt32(); // data hash
+                        short flag = br.ReadInt16();
+
+                        if (offset == 0)
+                        {
+                            continue;
+                        }
+
+                        if (!hashes.TryGetValue(hash, out int idx))
+                        {
+                            continue;
+                        }
+
+                        if (idx < 0 || idx >= Index.Length)
+                        {
+                            throw new IndexOutOfRangeException("hashes dictionary and files collection have different count of entries!");
+                        }
+
+                        offset += headerLength;
+
+                        // The width/height prefix can only be read straight off the stream when the payload
+                        // is stored. For anything compressed those first eight bytes belong to the zlib (or
+                        // zlib+Mythic) stream and the dimensions come out of the decompressed payload instead
+                        // - see SecondGump.ReadEntryPayload.
+                        if (hasExtra && (SecondCompressionFlag)flag == SecondCompressionFlag.None)
+                        {
+                            long curPos = br.BaseStream.Position;
+                            br.BaseStream.Seek(offset, SeekOrigin.Begin);
+                            var extra1 = br.ReadInt32();
+                            var extra2 = br.ReadInt32();
+                            Index[idx].Lookup = (int)(offset + 8);
+                            Index[idx].Length = compressedLength - 8;
+                            Index[idx].DecompressedLength = decompressedLength;
+                            Index[idx].Flag = (SecondCompressionFlag)flag;
+                            Index[idx].Extra = (extra1 << 16) | extra2;
+                            Index[idx].Extra1 = extra1;
+                            Index[idx].Extra2 = extra2;
+                            br.BaseStream.Seek(curPos, SeekOrigin.Begin);
+                        }
+                        else
+                        {
+                            Index[idx].Lookup = (int)offset;
+                            Index[idx].Length = compressedLength;
+                            Index[idx].DecompressedLength = decompressedLength;
+                            Index[idx].Flag = (SecondCompressionFlag)flag;
+                            Index[idx].Extra = 0x0FFFFFFF;
+                        }
+                    }
+                }
+                while (br.BaseStream.Seek(nextBlock, SeekOrigin.Begin) != 0);
+            }
+        }
+
+        public SecondIEntry GetEntry(int index)
+        {
+            if (index < 0 || index >= Index.Length)
+            {
+                return new SecondEntry6D();
+            }
+
+            return Index[index];
+        }
+    }
+}

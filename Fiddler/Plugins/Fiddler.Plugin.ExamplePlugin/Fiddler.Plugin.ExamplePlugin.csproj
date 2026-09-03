@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<AssemblyName>TestPlugin</AssemblyName>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AssemblyTitle>FiddlerPlugin</AssemblyTitle>
+		<Product>FiddlerPlugin</Product>
+		<Deterministic>false</Deterministic>
+		<Copyright>Copyright © 2026</Copyright>
+	</PropertyGroup>
+	<PropertyGroup>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugType>portable</DebugType>
+		<OutputPath>..\..\Fiddler\bin\$(Configuration)\plugins\</OutputPath>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>none</DebugType>
+		<OutputPath>..\..\Fiddler\bin\$(Configuration)\plugins\</OutputPath>
+		<GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Fiddler.Controls\Fiddler.Controls.csproj" />
+	  <ProjectReference Include="..\..\Ultima\Ultima.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Forms\ExampleForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Forms\ExampleForm.Designer.cs">
+			<DependentUpon>ExampleForm.cs</DependentUpon>
+		</Compile>
+		<Compile Update="UserControls\ExampleControl.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="UserControls\ExampleControl.Designer.cs">
+			<DependentUpon>ExampleControl.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Forms\ExampleForm.resx">
+			<DependentUpon>ExampleForm.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="UserControls\ExampleControl.resx">
+			<DependentUpon>ExampleControl.cs</DependentUpon>
+		</EmbeddedResource>
+	</ItemGroup>
+</Project>

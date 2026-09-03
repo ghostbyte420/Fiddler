@@ -1,0 +1,170 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<ApplicationIcon>Resources\FiddlerIcon.ico</ApplicationIcon>
+		<StartupObject>Fiddler.Program</StartupObject>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<RootNamespace>Fiddler</RootNamespace>
+		<AssemblyTitle>Fiddler</AssemblyTitle>
+		<Product>Fiddler</Product>
+		<Copyright>Copyright © 2026</Copyright>
+		<Deterministic>false</Deterministic>
+		<AssemblyVersion>4.23.0</AssemblyVersion>
+		<FileVersion>4.23.0</FileVersion>
+		<Version>4.23.0</Version>
+		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+	</PropertyGroup>
+	<PropertyGroup>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugType>portable</DebugType>
+		<OutputPath>bin\$(Configuration)\</OutputPath>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>none</DebugType>
+		<OutputPath>bin\$(Configuration)\</OutputPath>
+		<GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="Resources\Fiddler.jpg" />
+		<None Remove="Resources\FiddlerIcon.ico" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Forms\AboutBoxForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Forms\AboutBoxForm.Designer.cs">
+			<DependentUpon>AboutBoxForm.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Forms\ExceptionForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Forms\ExceptionForm.Designer.cs">
+			<DependentUpon>ExceptionForm.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Forms\LoadProfileForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Forms\LoadProfileForm.Designer.cs">
+			<DependentUpon>LoadProfileForm.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Forms\ManagePluginsForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Forms\ManagePluginsForm.Designer.cs">
+			<DependentUpon>ManagePluginsForm.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Forms\ManageToolsForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Forms\ManageToolsForm.Designer.cs">
+			<DependentUpon>ManageToolsForm.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Forms\OptionsForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Forms\OptionsForm.Designer.cs">
+			<DependentUpon>OptionsForm.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Forms\PathSettingsForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Forms\PathSettingsForm.Designer.cs">
+			<DependentUpon>PathSettingsForm.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Forms\UnDockedForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Forms\UnDockedForm.Designer.cs">
+			<DependentUpon>UnDockedForm.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Forms\MainForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Forms\MainForm.Designer.cs">
+			<DependentUpon>MainForm.cs</DependentUpon>
+		</Compile>
+		<EmbeddedResource Update="Forms\AboutBoxForm.resx">
+			<DependentUpon>AboutBoxForm.cs</DependentUpon>
+			<SubType>Designer</SubType>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Forms\ExceptionForm.resx">
+			<SubType>Designer</SubType>
+			<DependentUpon>ExceptionForm.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Forms\LoadProfileForm.resx">
+			<DependentUpon>LoadProfileForm.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Forms\ManagePluginsForm.resx">
+			<DependentUpon>ManagePluginsForm.cs</DependentUpon>
+			<SubType>Designer</SubType>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Forms\ManageToolsForm.resx">
+			<DependentUpon>ManageToolsForm.cs</DependentUpon>
+			<SubType>Designer</SubType>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Forms\OptionsForm.resx">
+			<DependentUpon>OptionsForm.cs</DependentUpon>
+			<SubType>Designer</SubType>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Forms\PathSettingsForm.resx">
+			<DependentUpon>PathSettingsForm.cs</DependentUpon>
+			<SubType>Designer</SubType>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+			<SubType>Designer</SubType>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Forms\UnDockedForm.resx">
+			<DependentUpon>UnDockedForm.cs</DependentUpon>
+			<SubType>Designer</SubType>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Forms\MainForm.resx">
+			<SubType>Designer</SubType>
+			<DependentUpon>MainForm.cs</DependentUpon>
+		</EmbeddedResource>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="Multilist.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="DynamicItems.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<EmbeddedResource Include="Resources\Fiddler.jpg" />
+		<EmbeddedResource Include="Resources\FiddlerIcon.ico" />
+		<None Include="Options_default.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="Animationlist.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.11" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.11" />
+		<PackageReference Include="Octokit" Version="14.0.0" />
+		<PackageReference Include="Serilog" Version="4.4.0" />
+		<PackageReference Include="Serilog.Extensions.Logging" Version="10.0.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Fiddler.Controls\Fiddler.Controls.csproj" />
+	  <ProjectReference Include="..\Ultima\Ultima.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="Gumplist.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+</Project>
